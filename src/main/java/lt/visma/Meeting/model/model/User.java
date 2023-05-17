@@ -1,17 +1,17 @@
 package lt.visma.Meeting.model.model;
 
+import java.util.Objects;
+
 public class User {
 
     private long id;
     private String fullName;
-    private String login;
-    private String password;
 
-    public User(long id, String fullName, String login, String password) {
+
+    public User(long id, String fullName) {
         this.id = id;
         this.fullName = fullName;
-        this.login = login;
-        this.password = password;
+
     }
 
     public User() {
@@ -33,19 +33,16 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getLogin() {
-        return login;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

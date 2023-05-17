@@ -2,7 +2,10 @@ package lt.visma.Meeting.model.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 public class Meeting {
 
@@ -12,23 +15,30 @@ public class Meeting {
     private String description;
     private Category category;
     private Type type;
+
+    private ArrayList<User> allUsers;
+
+
+
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endDate;
 
-    public Meeting(long id, String name, User responsiblePerson, String description, Category category, Type type, Date startDate, Date endDate) {
+    public Meeting(long id, String name, User responsiblePerson, String description, Category category, Type type, ArrayList<User> allUsers, Date startDate, Date endDate) {
         this.id = id;
         this.name = name;
         this.responsiblePerson = responsiblePerson;
         this.description = description;
         this.category = category;
         this.type = type;
+        this.allUsers = allUsers;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
     public Meeting() {
+        allUsers=new ArrayList<>();
     }
 
     public long getId() {
@@ -93,6 +103,27 @@ public class Meeting {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    public ArrayList<User> getAllUsers() {
+        return allUsers;
+    }
+
+    public void setAllUsers(ArrayList<User> allUsers) {
+        this.allUsers = allUsers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Meeting meeting = (Meeting) o;
+        return id == meeting.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
     @Override
